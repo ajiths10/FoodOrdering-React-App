@@ -2,6 +2,7 @@ import classes from "./AvailableMeals.module.css";
 import Card from "../UI/Card";
 import MealItem from "./MealItem/MealItem";
 
+
 const DUMMY_MEALS = [
   {
     id: "m1",
@@ -37,6 +38,7 @@ const AvailableMeals = () => {
       description={meal.description}
       price={meal.price}
     />
+    
   ));
   return (
     <section className={classes.meals}>
