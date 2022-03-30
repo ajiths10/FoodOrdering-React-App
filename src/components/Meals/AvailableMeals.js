@@ -1,4 +1,5 @@
 import classes from "./AvailableMeals.module.css";
+import bodyclasses from "./forbody.module.css";
 
 const DUMMY_MEALS = [
   {
@@ -28,10 +29,19 @@ const DUMMY_MEALS = [
 ];
 
 const AvailableMeals = () => {
-  const mealsList = DUMMY_MEALS.map((meal) => <li> {meal.name} </li>);
+  const mealsList = DUMMY_MEALS.map((meal) => (
+    <li className={bodyclasses.list}>
+      <div className={bodyclasses.mealName} >{meal.name}</div>
+      <div className={bodyclasses.mealDiscription}>{meal.description}</div>
+      <div className={bodyclasses.mealPrice}>{meal.price}</div>
+      <div >____________________________________________________________</div>
+    </li>
+  ));
   return (
     <section className={classes.meals}>
+      <div className={bodyclasses.body}>
       <ul>{mealsList}</ul>
+      </div>
     </section>
   );
 };

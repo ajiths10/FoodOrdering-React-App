@@ -1,0 +1,24 @@
+.body{
+    background-color: aliceblue;
+    border-radius: 12px;
+    box-shadow: 0 1px 8px rgba(0, 0, 0, 0.25);
+}
+
+.list{
+    margin-left: 40px;
+    margin-top: 10px;
+}
+
+.mealName{
+    font-weight: bold;
+    font-size: large;
+}
+
+.mealDiscription{
+    font-style: italic;
+}
+
+.mealPrice{
+    color: brown;
+    font-weight: bold;
+}
