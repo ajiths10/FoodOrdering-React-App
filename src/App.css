@@ -1,0 +1,30 @@
+.Header{
+    color: white;
+    background-color: brown;
+    height: 80px;
+}
+
+.button-Background{
+    background-color: rgb(100, 26, 26);
+    margin-left: 80%;
+    width: 120px;
+    height: 40px;
+    margin-top: -50px;
+    border-radius: 10px;
+    box-shadow: 0 1px 8px rgba(0, 0, 0, 0.25);
+}
+
+.counts{
+    background-color: brown;
+    color: white;
+    border-radius: 9px;
+    
+}
+
+.divtxt{
+    margin-left: 10px;
+}
+
+.h1txt{
+    margin-left: 30px;
+}
