@@ -1,32 +1,48 @@
-import React, { useContext } from "react";
-import classes from './MealItemForm.module.css';
-import Input from '../../UI/Input';
-import CartContext from "../../../store/cart-context";
+import React, { useRef, useState } from "react";
+import classes from "./MealItemForm.module.css";
+import Input from "../../UI/Input";
 
-const MealItemForm =(props) => {
 
-const CartCntx = useContext(CartContext);
+const MealItemForm = (props) => {
+  const amountInputRef = useRef();
+  const [amountIsValid , setAmountIsValid] = useState(true);
 
-    const addContextHandler=(event)=>{
-        event.preventDefault();
+  const addContextHandler = (event) => {
+    event.preventDefault();
 
-        const quantity = document.getElementById('amount_' +props.id).value ;
-        CartCntx.addItem({...props.item , quantity: quantity})
-    }
+    const enteredAmount = amountInputRef.current.value;
+    const enteredAmountNumber = +enteredAmount;
 
-    return (
-        <form className={classes.form} >
-            <Input label="Amount" input={{
-                id:"amount_" +props.id,
-                types: 'number',
-                min:'1',
-                max:'5',
-                step:'1',
-                defaultValue:'1',
-            }} />
-            <button onClick={addContextHandler} > + Add  </button>
-        </form>
-    )
+
+  if (
+    enteredAmount.trim().length === 0 ||
+    enteredAmountNumber < 1 ||
+    enteredAmountNumber > 5
+  ) {
+        setAmountIsValid(false);
+        return;
+  }
+
+  props.onAddToCart(enteredAmountNumber);
+};
+  return (
+    <form className={classes.form} onSubmit={addContextHandler} >
+      <Input
+        ref={amountInputRef}
+        label="Amount"
+        input={{
+          id: "amount_" + props.id,
+          types: "number",
+          min: "1",
+          max: "5",
+          step: "1",
+          defaultValue: "1",
+        }}
+      />
+      <button > + Add </button>
+      {!amountIsValid  &&  <label>Please enter a valid amount (1-5). </label>}
+    </form>
+  );
 };
 
 export default MealItemForm;
