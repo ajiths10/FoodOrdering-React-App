@@ -7,7 +7,7 @@ const CartProvider = (props) => {
 
     const addItemToCartHandler = (item) =>{
         updateItems([...items,item]);
-        console.log(items)
+        
     };
 
     const removeItemFromCartHandler = (id) =>{};

@@ -4,18 +4,20 @@ import Input from '../../UI/Input';
 import CartContext from "../../../store/cart-context";
 
 const MealItemForm =(props) => {
+
 const CartCntx = useContext(CartContext);
 
     const addContextHandler=(event)=>{
         event.preventDefault();
-        CartCntx.addItem(props.item)
-        
+
+        const quantity = document.getElementById('amount_' +props.id).value ;
+        CartCntx.addItem({...props.item , quantity: quantity})
     }
 
     return (
         <form className={classes.form} >
             <Input label="Amount" input={{
-                id:"amount",
+                id:"amount_" +props.id,
                 types: 'number',
                 min:'1',
                 max:'5',
