@@ -1,4 +1,4 @@
-import React, { useContext , useState } from "react";
+import React, { useState } from "react";
 import CartContext from "./cart-context";
 
 
@@ -7,7 +7,6 @@ const CartProvider = (props) => {
 
     const addItemToCartHandler = (item) =>{
         updateItems([...items,item]);
-        
     };
 
     const removeItemFromCartHandler = (id) =>{};
@@ -21,6 +20,7 @@ const CartProvider = (props) => {
 
     return <CartContext.Provider value={cartContext} >
         {props.children}
+        {console.log(items)}
     </CartContext.Provider>
 }
 
