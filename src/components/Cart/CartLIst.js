@@ -1,24 +1,30 @@
-import { Fragment, useContext } from "react";
-import classes from "./Cart.module.css";
-import CartContext from "../../store/cart-context";
-import CartItem from "../../store/CartItem";
+import { Fragment, useContext } from 'react';
 
-const CartList = (props) => {
+import CartItem from './CartItem';
+import classes from './Cart.module.css';
+import CartContext from '../../store/cart-context';
+
+const Cart = (props) => {
   const cartCtx = useContext(CartContext);
 
   const totalAmount = `$${cartCtx.totalAmount.toFixed(2)}`;
-  const check = cartCtx.items.length > 0;
+  const hasItems = cartCtx.items.length > 0;
 
-  const orderhandler = () => {
-    console.log("Ordering...");
+  const cartItemRemoveHandler = (id) => {
+    cartCtx.removeItem(id);
   };
 
-  const cartItemAddHandler =(id) => {};
+  const cartItemAddHandler = (item) => {
+    cartCtx.addItem({...item, amount: 1});
+  };
 
-  const cartItemRemoveHandler = (item) => {};
+  const orderingHandler = () =>{
+    console.log('Ordering...')
+  };
 
-  const CartItems = (
-    <ul className={classes["cart-items"]}>
+
+  const cartItems = (
+    <ul className={classes['cart-items']}>
       {cartCtx.items.map((item) => (
         <CartItem
           key={item.id}
@@ -26,7 +32,7 @@ const CartList = (props) => {
           amount={item.amount}
           price={item.price}
           onRemove={cartItemRemoveHandler.bind(null, item.id)}
-          onAdd={cartItemAddHandler(null,item)}
+          onAdd={cartItemAddHandler.bind(null, item)}
         />
       ))}
     </ul>
@@ -34,26 +40,19 @@ const CartList = (props) => {
 
   return (
     <Fragment>
-      {CartItems}
-      {console.log(props)}
-      {!check && <label>Cart empty</label>}
+      {cartItems}
       <div className={classes.total}>
         <span>Total Amount</span>
         <span>{totalAmount}</span>
       </div>
-
       <div className={classes.actions}>
-        <button className={classes["button--alt"]} onClick={props.onClose}>
+        <button className={classes['button--alt']} onClick={props.onClose}>
           Close
         </button>
-        {check && (
-          <button className={classes.button} onClick={orderhandler}>
-            Order
-          </button>
-        )}
+        {hasItems && <button className={classes.button} onClick={orderingHandler} >Order</button>}
       </div>
     </Fragment>
   );
 };
 
-export default CartList;
+export default Cart;
