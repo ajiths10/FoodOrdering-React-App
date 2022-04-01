@@ -1,6 +1,7 @@
 import { Fragment, useContext } from "react";
 import classes from "./Cart.module.css";
 import CartContext from "../../store/cart-context";
+import CartItem from "../../store/CartItem";
 
 const CartList = (props) => {
   const cartCtx = useContext(CartContext);
@@ -12,18 +13,30 @@ const CartList = (props) => {
     console.log("Ordering...");
   };
 
+  const cartItemAddHandler =(id) => {};
+
+  const cartItemRemoveHandler = (item) => {};
+
   const CartItems = (
     <ul className={classes["cart-items"]}>
       {cartCtx.items.map((item) => (
-        <li>Name:{item.name} Amount:{item.price} quantity:{item.quantity} </li>
+        <CartItem
+          key={item.id}
+          name={item.name}
+          amount={item.amount}
+          price={item.price}
+          onRemove={cartItemRemoveHandler.bind(null, item.id)}
+          onAdd={cartItemAddHandler(null,item)}
+        />
       ))}
     </ul>
   );
 
   return (
     <Fragment>
-      {CartItems}{console.log(props)}
-      { !check && <label>Cart empty</label>}
+      {CartItems}
+      {console.log(props)}
+      {!check && <label>Cart empty</label>}
       <div className={classes.total}>
         <span>Total Amount</span>
         <span>{totalAmount}</span>
@@ -33,9 +46,11 @@ const CartList = (props) => {
         <button className={classes["button--alt"]} onClick={props.onClose}>
           Close
         </button>
-        { check && <button className={classes.button} onClick={orderhandler}>
-          Order
-        </button>}
+        {check && (
+          <button className={classes.button} onClick={orderhandler}>
+            Order
+          </button>
+        )}
       </div>
     </Fragment>
   );
